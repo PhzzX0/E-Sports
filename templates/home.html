@@ -93,134 +93,31 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <!-- Player 1 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-500">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://mibr.gg/wp-content/uploads/2025/01/PlayerProfile_ValorantMisto_Aspas-copiar.jpg" alt="Player 1" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-4">
-                            <h3 class="text-2xl font-orbitron font-bold text-light">ÁLEF</h3>
-                            <p class="text-secondary">Player</p>
+                {% for p in players %}
+                    <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-500">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://mibr.gg/wp-content/uploads/2025/01/PlayerProfile_ValorantMisto_Aspas-copiar.jpg" alt="Player" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h3 class="text-2xl font-orbitron font-bold text-light">{{ p.name }}</h3>
+                                <p class="text-secondary">{{ p.role }}</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <span class="bg-primary/10 text-primary text-xs font-semibold px-2.5 py-0.5 rounded">{{ p.game }}</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                {% if p.instagram %}<a href="{{ p.instagram }}" class="text-light hover:text-primary transition"><i data-feather="twitter" class="w-4 h-4"></i>{% endif %}
+                                </a>
+                                <!--
+                                <a href="#" class="text-light hover:text-primary transition">
+                                    <i data-feather="twitch" class="w-4 h-4"></i>
+                                </a> -->
+                            </div>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary/10 text-primary text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Clash Royale</span>
-                            <!-- <span class="bg-secondary/10 text-secondary text-xs font-semibold px-2.5 py-0.5 rounded">Valorant</span> -->
-                        </div>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitter" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitch" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="instagram" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Player 2 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-500">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://mibr.gg/wp-content/uploads/2025/01/PlayerProfile_ValorantMisto_Aspas-copiar.jpg" alt="Player 2" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-4">
-                            <h3 class="text-2xl font-orbitron font-bold text-light">COSERN</h3>
-                            <p class="text-secondary">Player</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary/10 text-primary text-xs font-semibold px-2.5 py-0.5 rounded">Clash Royale</span>
-                        </div>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitter" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitch" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Player 3 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-500">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://mibr.gg/wp-content/uploads/2025/01/PlayerProfile_ValorantMisto_Aspas-copiar.jpg" alt="Player 3" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-4">
-                            <h3 class="text-2xl font-orbitron font-bold text-light">RANIELISON</h3>
-                            <p class="text-secondary">Player</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary/10 text-primary text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Clash Royale</span>
-                        </div>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitter" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="youtube" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Player 4 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-500">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://mibr.gg/wp-content/uploads/2025/01/PlayerProfile_ValorantMisto_Aspas-copiar.jpg" alt="Player 4" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-4">
-                            <h3 class="text-2xl font-orbitron font-bold text-light">PH</h3>
-                            <p class="text-secondary">Coach</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary/10 text-primary text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Clash Royale</span>
-                        </div>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitter" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="youtube" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Player 5 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-500">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://mibr.gg/wp-content/uploads/2025/01/PlayerProfile_ValorantMisto_Aspas-copiar.jpg" alt="Player 5" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-4">
-                            <h3 class="text-2xl font-orbitron font-bold text-light">SIGANO</h3>
-                            <p class="text-secondary">Assistant Coach</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="bg-primary/10 text-primary text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Clash Royale</span>
-                        </div>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="twitter" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="text-light hover:text-primary transition">
-                                <i data-feather="youtube" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -236,22 +133,34 @@
                     Anote na agenda nossos próximos confrontos.
                 </p>
             </div>
-            <div class="space-y-6">
-                {% for i in range(5) %}
-                <div class="bg-dark/50 border border-primary/20 rounded-xl p-6 flex justify-between items-center">
-                    <div>
-                        <h3 class="text-xl font-bold">Campeonato XYZ</h3>
-                        <p class="text-light/60">Equipe vs Adversário</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                {% for m in matches %}
+                <div class="bg-dark border border-primary/30 rounded-2xl p-6 shadow-lg hover:shadow-primary/30 transition duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-primary font-orbitron">
+                            {{ m.tournament }}
+                        </h2>
+                        <span class="text-secondary text-lg font-semibold">
+                            {{ m.time.strftime('%H:%M') }}
+                        </span>
                     </div>
-                    <div class="text-right">
-                        <p class="text-primary font-bold">25/11/2025</p>
-                        <p class="text-light/60">19:00</p>
+                    <div class="text-light/90 text-lg mb-2">
+                        <span class="font-semibold text-light">Adversário:</span> 
+                        {{ m.opponent }}
+                    </div>
+                    <div class="text-light/90 text-lg mb-2">
+                        <span class="font-semibold text-light">Data:</span> 
+                        {{ m.date.strftime('%d/%m/%Y') }}
+                    </div>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary text-light px-4 py-1 rounded-full text-sm font-semibold">
+                            {{ m.date.strftime('%d %b') }} • {{ m.time.strftime('%H:%M') }}
+                        </span>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
-
     </section>
 
     <!-- Merch Section -->
@@ -267,119 +176,39 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Merch Item 1 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="http://static.photos/black/640x360/1" alt="Team Jersey" class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4">
-                            <span class="bg-primary text-dark text-xs font-bold px-2 py-1 rounded-full">NOVO</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-light mb-2">Nome Teste Pro Jersey</h3>
-                        <div class="flex items-center mb-4">
-                            <div class="flex text-secondary">
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                {% for p in products %}
+                    <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-300">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="http://static.photos/black/640x360/1" alt="Team Jersey" class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-primary text-dark text-xs font-bold px-2 py-1 rounded-full">NOVO</span>
                             </div>
-                            <span class="text-xs text-light/60 ml-2">(24)</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold text-lg">R$ 99,99</span>
-                            <button class="bg-primary hover:bg-primary/90 text-dark font-bold py-2 px-4 rounded-full text-sm transition">
-                                CARRINHO
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Merch Item 2 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="http://static.photos/black/640x360/2" alt="Hoodie" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-light mb-2">Nome Teste Hoodie</h3>
-                        <div class="flex items-center mb-4">
-                            <div class="flex text-secondary">
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-light mb-2">{{ p.name }}</h3>
+                            <div class="flex items-center mb-4">
+                                <div class="flex text-secondary">
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                </div>
+                                <span class="text-xs text-light/60 ml-2">(24)</span>
                             </div>
-                            <span class="text-xs text-light/60 ml-2">(18)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold text-lg">R$ 149,99</span>
-                            <button class="bg-primary hover:bg-primary/90 text-dark font-bold py-2 px-4 rounded-full text-sm transition">
-                                CARRINHO
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Merch Item 3 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="http://static.photos/black/640x360/3" alt="Cap" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-light mb-2">Nome Teste Snapback</h3>
-                        <div class="flex items-center mb-4">
-                            <div class="flex text-secondary">
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 stroke-current"></i>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold text-lg">R$ {{ "%.2f"|format(p.price) }}</span>
+                                <button class="bg-primary hover:bg-primary/90 text-dark font-bold py-2 px-4 rounded-full text-sm transition">
+                                    CARRINHO
+                                </button>
                             </div>
-                            <span class="text-xs text-light/60 ml-2">(12)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold text-lg">R$ 49,99</span>
-                            <button class="bg-primary hover:bg-primary/90 text-dark font-bold py-2 px-4 rounded-full text-sm transition">
-                                CARRINHO
-                            </button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Merch Item 4 -->
-                <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="http://static.photos/black/640x360/4" alt="Mousepad" class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4">
-                            <span class="bg-secondary text-dark text-xs font-bold px-2 py-1 rounded-full">BEST SELLER</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-light mb-2">Nome Teste XXL Mousepad</h3>
-                        <div class="flex items-center mb-4">
-                            <div class="flex text-secondary">
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                                <i data-feather="star" class="w-4 h-4 stroke-current"></i>
-                            </div>
-                            <span class="text-xs text-light/60 ml-2">(32)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold text-lg">R$ 29,99</span>
-                            <button class="bg-primary hover:bg-primary/90 text-dark font-bold py-2 px-4 rounded-full text-sm transition">
-                                CARRINHO
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             
             <div class="text-center mt-12">
-                <a href="#" class="inline-flex items-center px-6 py-3 border border-primary text-primary font-bold rounded-full hover:bg-primary/10 transition">
+                <a href="{{ url_for('loja') }}" class="inline-flex items-center px-6 py-3 border border-primary text-primary font-bold rounded-full hover:bg-primary/10 transition">
                     VER TODO MERCHANDISE
                     <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
                 </a>
@@ -440,21 +269,11 @@
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                {% for s in sponsors %}
                 <div class="flex items-center justify-center p-4 bg-dark/50 border border-primary/20 rounded-lg h-24">
-                    <img src="https://tse2.mm.bing.net/th/id/OIP.Ix4T8bFRcCtMzDza7cbkgAHaHX?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Sponsor 1" class="h-12 object-contain">
+                    <img src="{{ s.logo_url }}" alt="Sponsors" class="h-12 object-contain">
                 </div>
-                <div class="flex items-center justify-center p-4 bg-dark/50 border border-primary/20 rounded-lg h-24">
-                    <img src="https://enter.travel/portodegalinhas/wp-content/uploads/sites/2/2019/02/farmacia-porto-de-galinhas-pague-menos-logo.png" alt="Sponsor 2" class="h-12 object-contain">
-                </div>
-                <div class="flex items-center justify-center p-4 bg-dark/50 border border-primary/20 rounded-lg h-24">
-                    <img src="https://i.pinimg.com/736x/f7/15/40/f715403e7eb7769b89b1b72916a45f0f.jpg" alt="Sponsor 3" class="h-12 object-contain">
-                </div>
-                <div class="flex items-center justify-center p-4 bg-dark/50 border border-primary/20 rounded-lg h-24">
-                    <img src="https://images.seeklogo.com/logo-png/20/1/amd-logo-png_seeklogo-209670.png" alt="Sponsor 4" class="h-12 object-contain">
-                </div>
-                <div class="flex items-center justify-center p-4 bg-dark/50 border border-primary/20 rounded-lg h-24">
-                    <img src="https://tse2.mm.bing.net/th/id/OIP.9_XjLLr3TScSddRAQtre9QHaHa?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Sponsor 5" class="h-12 object-contain">
-                </div>
+                {% endfor %}
             </div>
             
         </div>

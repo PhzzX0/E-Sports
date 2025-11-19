@@ -1,46 +1,72 @@
 <!-- Navigation -->
-    <nav class="bg-dark/80 backdrop-blur-md border-b border-primary/20 fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-primary font-orbitron text-2xl font-bold">NOME<span class="text-secondary">TESTE</span></h1>
+<nav class="bg-dark/80 backdrop-blur-md border-b border-primary/20 fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-primary font-orbitron text-2xl font-bold">
+                    NOME<span class="text-secondary">TESTE</span>
+                </h1>
+                <!-- Desktop menu -->
+                <div class="hidden md:block ml-10">
+                    <div class="flex space-x-4">
+                        <a href="{{ url_for('home') }}" class="{% if active_page == 'home' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %} px-3 py-2 text-sm transition">
+                            INÍCIO
+                        </a>
+                        <a href="{{ url_for('time') }}" class="{% if active_page == 'time' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %} px-3 py-2 text-sm transition">
+                            TIME
+                        </a>
+                        <a href="{{ url_for('loja') }}" class="{% if active_page == 'loja' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %} px-3 py-2 text-sm transition">
+                            LOJA
+                        </a>
+                        <a href="{{ url_for('noticias') }}" class="{% if active_page == 'noticias' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %} px-3 py-2 text-sm transition">
+                            NOTICIAS
+                        </a>
+                        <a href="{{ url_for('agenda') }}" class="{% if active_page == 'agenda' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %} px-3 py-2 text-sm transition">
+                            AGENDA
+                        </a>
+                        <a href="{{ url_for('parceiros') }}" class="{% if active_page == 'parceiros' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %} px-3 py-2 text-sm transition">
+                            PARCEIROS
+                        </a>
                     </div>
-                    <div class="hidden md:block ml-10">
-                        <div class="flex space-x-4">
-                            <a href="{{ url_for('home') }}" class="text-primary px-3 py-2 rounded-md text-sm font-medium transition">INÍCIO</a>
-                            <a href="{{ url_for('time') }}" class="text-light hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition">TIME</a>
-                            <a href="{{ url_for('loja') }}" class="text-light hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition">LOJA</a>
-                            <a href="{{ url_for('noticias') }}" class="text-light hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition">NOTICIAS</a>
-                            <a href="{{ url_for('agenda') }}" class="text-light hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition">AGENDA</a>
-                            <a href="{{ url_for('parceiros') }}" class="text-light hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition">PARCEIROS</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6">
-                        <button class="text-primary hover:text-primary/70 px-4 py-2 rounded-md text-sm font-bold text-dark flex items-center">
-                            <i data-feather="user" class="mr-2 w-4 h-4"></i> LOGIN
-                        </button>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-light hover:text-primary focus:outline-none">
-                        <i data-feather="menu"></i>
-                    </button>
                 </div>
             </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-dark/95 backdrop-blur-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="{{ url_for('home') }}" class="block text-primary px-3 py-2 rounded-md text-base font-medium">INÍCIO</a>
-                <a href="{{ url_for('time') }}" class="block text-light hover:text-primary px-3 py-2 rounded-md text-base font-medium">TIME</a>
-                <a href="{{ url_for('loja') }}" class="block text-light hover:text-primary px-3 py-2 rounded-md text-base font-medium">LOJA</a>
-                <a href="{{ url_for('parceiros') }}" class="block text-light hover:text-primary px-3 py-2 rounded-md text-base font-medium">PARCEIROS</a>
-                <button class="block w-full bg-primary hover:bg-primary/90 px-4 py-2 rounded-md text-base font-bold text-dark mt-2 flex items-center justify-center">
-                    <i data-feather="shopping-bag" class="mr-2 w-4 h-4"></i> LOGIN
+            <!-- Login -->
+            <div class="hidden md:block">
+                <button class="text-primary hover:text-primary/70 px-4 py-2 rounded-md text-sm font-bold flex items-center">
+                    <i data-feather="user" class="mr-2 w-4 h-4"></i> LOGIN
+                </button>
+            </div>
+            <!-- Mobile button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-light hover:text-primary">
+                    <i data-feather="menu"></i>
                 </button>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-dark/95 backdrop-blur-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="{{ url_for('home') }}" class="block px-3 py-2 rounded-md text-base font-medium {% if active_page == 'home' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %}">
+                INÍCIO
+            </a>
+            <a href="{{ url_for('time') }}" class="block px-3 py-2 text-base {% if active_page == 'time' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %}">
+                TIME
+            </a>
+            <a href="{{ url_for('loja') }}" class="block px-3 py-2 text-base {% if active_page == 'loja' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %}">
+                LOJA
+            </a>
+            <a href="{{ url_for('noticias') }}" class="block px-3 py-2 text-base {% if active_page == 'noticias' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %}">
+                NOTICIAS
+            </a>
+            <a href="{{ url_for('agenda') }}" class="block px-3 py-2 text-base {% if active_page == 'agenda' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %}">
+                AGENDA
+            </a>
+            <a href="{{ url_for('parceiros') }}" class="block px-3 py-2 text-base {% if active_page == 'parceiros' %}text-primary font-bold{% else %}text-light hover:text-primary font-bold{% endif %}">
+                PARCEIROS
+            </a>
+        </div>
+    </div>
+</nav>
