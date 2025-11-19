@@ -1,6 +1,17 @@
 from flask import Flask, render_template
+from models import db
+import models
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+# CRIA AS TABELAS AUTOMATICAMENTE
+with app.app_context():
+    db.create_all()
+    print("Tabelas criadas com sucesso!")
 
 @app.route("/")
 def home():
