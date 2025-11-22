@@ -12,6 +12,10 @@
         <button type="submit" class="w-full bg-primary text-dark font-bold py-3 rounded-lg hover:bg-primary/80 transition">
             Entrar
         </button>
+        <div class="flex justify-end space-x-2">
+            <span class="text-light/60">Não possui um conta?</span>
+            <a href="{{ url_for('cadastro') }}" class="text-primary hover:text-primary/80">Cadastre-se</a>
+        </div>
     </form>
 </section>
 
