@@ -37,9 +37,9 @@ login_manager.login_view = "login"  # se tentar acessar rota protegida sem login
 
 @app.route("/")
 def home():
-    from models import News, Player, Match, Product, Sponsor
+    from models import News, Player, Match, Product, Sponsor, News
 
-    breaking_news = News.query.order_by(News.created_at.desc()).limit(6).all()
+    all_news = News.query.order_by(News.created_at.desc()).all()
     squad = Player.query.all()
     matches = Match.query.order_by(Match.date.asc()).limit(5).all()
     products = Product.query.all()
@@ -48,7 +48,7 @@ def home():
     return render_template(
         "home.html",
         title="Início",
-        breaking_news=breaking_news,
+        noticias=all_news,
         players=squad,
         matches=matches,
         products=products,

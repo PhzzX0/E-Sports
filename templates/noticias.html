@@ -5,17 +5,32 @@
     <h2 class="text-4xl font-orbitron font-bold mb-12 text-primary">NOTÍCIAS</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {% for i in range(6) %}
-        <article class="bg-dark/50 border border-primary/20 p-6 rounded-xl hover:border-primary transition">
-            <img src="https://via.placeholder.com/600x300" class="rounded-lg mb-4">
-            <h3 class="text-2xl font-bold mb-2">Título da notícia {{ i + 1 }}</h3>
-            <p class="text-light/60 mb-3">
-                Uma pequena descrição da notícia para chamar atenção do leitor.
+        {% for news_item in noticias %}
+        <article x-data="{ open: false }" class="bg-dark/50 border border-primary/20 p-6 rounded-xl hover:border-primary transition">
+            <img src="{{ news_item.image_url }}" onerror="this.src='https://via.placeholder.com/600x300'" class="rounded-lg mb-4">
+            <h3 class="text-2xl font-orbitron font-bold text-primary mb-2">{{ news_item.title }}</h3>
+            <p class="text-light/80 mb-3">
+                {{ news_item.description[:100] }}...
             </p>
-            <a href="#" class="text-primary font-bold hover:text-primary/70">Ler mais →</a>
+            <button @click="open = true" class="text-primary font-bold hover:text-primary/80">Ler mais →</button>
+
+            <!-- Modal -->
+            <div x-show="open" x-transition class="fixed inset-0 bg-black/70 flex items-center justify-center z-50" style="display: none;">
+                <div @click.away="open = false" class="bg-dark/90 rounded-xl max-w-3xl w-full p-6 relative">
+                    <button @click="open = false" class="absolute top-4 right-4 text-light hover:text-primary">
+                        <i data-feather="x" class="w-5 h-5"></i>
+                    </button>
+                    <img src="{{ news_item.image_url }}" class="rounded-lg mb-4">
+                    <h3 class="text-3xl font-bold text-primary mb-4">{{ news_item.title }}</h3>
+                    <p class="text-light/80">{{ news_item.description }}</p>
+                </div>
+            </div>
         </article>
+        {% else %}
+            <p class="text-light/60 col-span-2">Nenhuma notícia encontrada.</p>
         {% endfor %}
     </div>
 </section>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 {% endblock %}

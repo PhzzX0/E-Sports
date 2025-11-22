@@ -25,19 +25,19 @@ with app.app_context():
         News(
             title="Novo jogador entra para o time!",
             description="O novo prodígio chega para elevar o nível competitivo.",
-            image_url="https://i.imgur.com/DV7Q4kJ.jpeg",
+            image_url="static/news/test.jpg",
             link="#"
         ),
         News(
             title="Time garante vaga no campeonato internacional",
             description="Após uma série incrível, garantimos nossa vaga.",
-            image_url="https://i.imgur.com/U7FvkQZ.jpeg",
+            image_url="static/news/test.jpg",
             link="#"
         ),
         News(
             title="Line-up reformulada para a próxima temporada",
             description="Mudanças estratégicas visando melhores resultados.",
-            image_url="https://i.imgur.com/1qcTj6V.jpeg",
+            image_url="static/news/test.jpg",
             link="#"
         ),
     ]
