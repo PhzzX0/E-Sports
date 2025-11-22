@@ -120,8 +120,6 @@ def agenda():
 # ==========================================
 # Flask-Login - load_user
 # ==========================================
-class UserModel(UserMixin, User):
-    pass
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -163,7 +161,7 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password_hash, password):
-            session["user_id"] = user.id
+            login_user(user)
             flash(f"Bem-vindo, {user.username}!", "success")
             return redirect(url_for("home"))
         else:
@@ -175,7 +173,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session.pop("user_id", None)
+    logout_user()
     flash("Você saiu da conta.", "success")
     return redirect(url_for("home"))
 
@@ -190,10 +188,56 @@ def perfil():
 
 @app.context_processor
 def inject_user():
-    user = None
-    if "user_id" in session:
-        user = User.query.get(session["user_id"])
-    return dict(current_user=user)
+    return dict(current_user=current_user)
+
+
+# ==========================================
+# ROTAS DO CARRINHO
+# ==========================================
+@app.route('/add-to-cart/<int:product_id>', methods=['POST'])
+@login_required
+def add_to_cart(product_id):
+    from models import Product, Cart, CartItem
+
+    # Pega o produto ou retorna 404
+    product = Product.query.get_or_404(product_id)
+
+    # Pega ou cria o carrinho do usuário logado
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if not cart:
+        cart = Cart(user_id=current_user.id)
+        db.session.add(cart)
+        db.session.commit()
+
+    # Verifica se o item já está no carrinho
+    cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product.id).first()
+    if cart_item:
+        cart_item.quantity += 1
+    else:
+        cart_item = CartItem(cart_id=cart.id, product_id=product.id, quantity=1)
+        db.session.add(cart_item)
+
+    db.session.commit()
+    flash(f"{product.name} adicionado ao carrinho!", "success")
+    return redirect(url_for('loja'))
+
+
+@app.route('/carrinho')
+@login_required
+def carrinho():
+    from models import Cart
+
+    # Pega o carrinho do usuário
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    
+    # Se não existir carrinho, cria vazio (opcional)
+    if not cart:
+        cart = Cart(user_id=current_user.id)
+        db.session.add(cart)
+        db.session.commit()
+
+    return render_template('carrinho.html', cart=cart)
+
 
 
 # ============================================
