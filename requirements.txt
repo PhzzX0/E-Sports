@@ -2,3 +2,4 @@ flask
 flask_login
 werkzeug
 flask_sqlalchemy
+gunicorn
