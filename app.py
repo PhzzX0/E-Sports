@@ -455,7 +455,7 @@ def admin_add_news():
         if not allowed_file(file.filename):
             flash('Erro: Extensão de arquivo não permitida!', 'danger')
             return redirect(url_for('admin_add_news'))
-        filename = save_picture(file)
+        filename = save_picture(file, 'news') 
         news = News(title=title, description=description, image_file=filename, link=link)
         db.session.add(news)
         db.session.commit()
@@ -474,12 +474,12 @@ def admin_edit_news(news_id):
         news.link = request.form.get('link')
         if 'file' in request.files and request.files['file'].filename != '':
             file = request.files['file']
-            if allowed_file(file.filename):
-                delete_picture(news.image_file) 
-                new_filename = save_picture(file)
-                news.image_file = new_filename
-            else:
-                flash('Erro: Extensão de arquivo não permitida! Mantendo imagem anterior.', 'warning')
+        if allowed_file(file.filename):
+            delete_picture(news.image_file, 'news')
+            new_filename = save_picture(file, 'news') 
+            news.image_file = new_filename
+        else:
+            flash('Erro: Extensão de arquivo não permitida! Mantendo imagem anterior.', 'warning')
         db.session.commit()
         flash('Notícia atualizada com sucesso!', 'success')
         return redirect(url_for('admin_news'))
@@ -490,7 +490,7 @@ def admin_edit_news(news_id):
 @admin_required
 def admin_delete_news(news_id):
     news = News.query.get_or_404(news_id)
-    delete_picture(news.image_file)
+    delete_picture(news.image_file, 'news')
     db.session.delete(news)
     db.session.commit()
     flash('Notícia deletada com sucesso!', 'success')
