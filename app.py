@@ -2,14 +2,22 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from models import db, User, Player, Match, Product, Sponsor, Cart, CartItem, News
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from functools import wraps
 import os
 import datetime
+import secrets
 
 # ============================================
 # CONFIGURAÇÃO DA APLICAÇÃO
 # ============================================
 app = Flask(__name__)
+
+# Diretório de uploads
+UPLOAD_FOLDER = os.path.join('static', 'uploads', 'news')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app_dir = os.path.abspath(os.path.dirname(__file__))
 db_path = os.path.join(app_dir, "instance", "site.db")
@@ -223,6 +231,39 @@ def admin_dashboard():
 
 
 # ==========================================
+# UPLOAD DE IMAGENS
+# ==========================================
+def allowed_file(filename):
+    """Verifica se a extensão do arquivo é permitida."""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def save_picture(form_picture):
+    """Salva a imagem no sistema de arquivos com um nome único."""
+    # 1. Gerar nome de arquivo único
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    
+    # 2. Definir o caminho completo de salvamento
+    # app.root_path é o diretório raiz do seu aplicativo (onde app.py está)
+    picture_path = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], picture_fn)
+    
+    # 3. Salvar o arquivo
+    form_picture.save(picture_path)
+    
+    # 4. Retornar o nome do arquivo para o banco de dados
+    return picture_fn
+
+def delete_picture(filename):
+    """Deleta o arquivo de imagem do sistema de arquivos."""
+    if filename:
+        picture_path = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename)
+        if os.path.exists(picture_path):
+            os.remove(picture_path)
+
+
+# ==========================================
 # ROTAS DE CRUD
 # ==========================================
 
@@ -373,9 +414,16 @@ def admin_add_news():
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
-        image_url = request.form.get('image_url')
         link = request.form.get('link')
-        news = News(title=title, description=description, image_url=image_url, link=link)
+        if 'file' not in request.files or request.files['file'].filename == '':
+            flash('Erro: A imagem da notícia é obrigatória!', 'danger')
+            return redirect(url_for('admin_add_news'))
+        file = request.files['file']
+        if not allowed_file(file.filename):
+            flash('Erro: Extensão de arquivo não permitida!', 'danger')
+            return redirect(url_for('admin_add_news'))
+        filename = save_picture(file)
+        news = News(title=title, description=description, image_file=filename, link=link)
         db.session.add(news)
         db.session.commit()
         flash('Notícia adicionada com sucesso!', 'success')
@@ -390,8 +438,15 @@ def admin_edit_news(news_id):
     if request.method == 'POST':
         news.title = request.form['title']
         news.description = request.form['description']
-        news.image_url = request.form.get('image_url')
         news.link = request.form.get('link')
+        if 'file' in request.files and request.files['file'].filename != '':
+            file = request.files['file']
+            if allowed_file(file.filename):
+                delete_picture(news.image_file) 
+                new_filename = save_picture(file)
+                news.image_file = new_filename
+            else:
+                flash('Erro: Extensão de arquivo não permitida! Mantendo imagem anterior.', 'warning')
         db.session.commit()
         flash('Notícia atualizada com sucesso!', 'success')
         return redirect(url_for('admin_news'))
@@ -402,6 +457,7 @@ def admin_edit_news(news_id):
 @admin_required
 def admin_delete_news(news_id):
     news = News.query.get_or_404(news_id)
+    delete_picture(news.image_file)
     db.session.delete(news)
     db.session.commit()
     flash('Notícia deletada com sucesso!', 'success')
@@ -561,7 +617,6 @@ def add_to_cart(product_id):
     flash(f"{product.name} adicionado ao carrinho!", "success")
     return redirect(url_for('loja'))
 
-
 @app.route('/carrinho')
 @login_required
 def carrinho():
@@ -577,7 +632,6 @@ def carrinho():
         db.session.commit()
 
     return render_template('carrinho.html', cart=cart)
-
 
 
 # ============================================

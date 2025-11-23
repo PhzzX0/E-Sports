@@ -56,50 +56,50 @@
 
     <!-- News Section -->
     <section id="news" class="py-20 px-4 sm:px-6 lg:px-0 bg-dark" 
-            x-data="{ current: 0, total: {{ noticias|length }} }">
+        x-data="{ current: 0, total: {{ noticias|length }} }">
         <div class="max-w-7xl mx-auto text-center mb-16">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-orbitron font-bold mb-4">
-                <span class="text-primary">BREAKING</span> <span class="text-secondary">NEWS</span>
-            </h2>
-            <p class="max-w-2xl mx-auto text-light/80">
-                Acompanhe nossas notícias do cenário.
-            </p>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-orbitron font-bold mb-4">
+            <span class="text-primary">BREAKING</span> <span class="text-secondary">NEWS</span>
+        </h2>
+        <p class="max-w-2xl mx-auto text-light/80">
+            Acompanhe nossas notícias do cenário.
+        </p>
         </div>
 
         <div class="relative overflow-hidden">
-            <!-- Slides container -->
-            <div class="flex transition-transform duration-500"
-                :style="`transform: translateX(-${current * 100}%)`">
+                <div class="flex transition-transform duration-500"
+            :style="`transform: translateX(-${current * 100}%)`">
 
-                {% for news_item in noticias %}
-                <!-- Cada slide ocupa 100% do container -->
-                <div class="flex-shrink-0 w-full flex justify-center">
-                    <div class="relative w-[90%] sm:w-[500px] md:w-[600px] lg:w-[700px] rounded-xl overflow-hidden">
-                        <img src="{{ news_item.image_url or 'https://via.placeholder.com/600x300' }}" class="w-full h-auto object-cover rounded-xl">
-                        
-                        <!-- Texto no canto inferior esquerdo -->
-                        <div class="absolute bottom-0 left-0 bg-black/60 p-4 rounded-tr-xl">
-                            <h3 class="text-xl sm:text-2xl font-orbitron font-bold text-primary mb-1">{{ news_item.title }}</h3>
-                            <p class="text-light/80 text-sm sm:text-base">{{ news_item.description[:100] }}...</p>
-                        </div>
-                    </div>
+            {% for news_item in noticias %}
+                    <div class="flex-shrink-0 w-full flex justify-center">
+            <div class="relative w-[90%] sm:w-[500px] md:w-[600px] lg:w-[700px] rounded-xl overflow-hidden">
+                
+                            <img 
+                                src="{{ url_for('static', filename='uploads/news/' + news_item.image_file) if news_item.image_file else 'https://via.placeholder.com/600x300' }}" 
+                                class="w-full h-auto object-cover rounded-xl"
+                            >
+                
+                            <div class="absolute bottom-0 left-0 bg-black/60 p-4 rounded-tr-xl">
+                <h3 class="text-xl sm:text-2xl font-orbitron font-bold text-primary mb-1">{{ news_item.title }}</h3>
+                <p class="text-light/80 text-sm sm:text-base">{{ news_item.description[:100] }}...</p>
                 </div>
-                {% endfor %}
-
             </div>
+            </div>
+            {% endfor %}
 
-            <!-- Botões -->
-            <button @click="current = (current === 0 ? total - 1 : current - 1)"
-                    class="absolute top-1/2 -translate-y-1/2 bg-primary/40 hover:bg-primary/80 text-white p-3 rounded-full
-                        left-8 md:left-24 z-20 flex items-center justify-center transition">
-                <i data-feather="chevron-left" class="w-5 h-5"></i>
-            </button>
+        </div>
 
-            <button @click="current = (current === total - 1 ? 0 : current + 1)"
-                    class="absolute top-1/2 -translate-y-1/2 bg-primary/40 hover:bg-primary/80 text-white p-3 rounded-full
-                        right-8 md:right-24 z-20 flex items-center justify-center transition">
-                <i data-feather="chevron-right" class="w-5 h-5"></i>
-            </button>
+                <button @click="current = (current === 0 ? total - 1 : current - 1)"
+            class="absolute top-1/2 -translate-y-1/2 bg-primary/40 hover:bg-primary/80 text-white p-3 rounded-full
+                left-8 md:left-24 z-20 flex items-center justify-center transition">
+            <i data-feather="chevron-left" class="w-5 h-5"></i>
+        </button>
+
+        <button @click="current = (current === total - 1 ? 0 : current + 1)"
+            class="absolute top-1/2 -translate-y-1/2 bg-primary/40 hover:bg-primary/80 text-white p-3 rounded-full
+                right-8 md:right-24 z-20 flex items-center justify-center transition">
+            <i data-feather="chevron-right" class="w-5 h-5"></i>
+        </button>
         </div>
     </section>
 

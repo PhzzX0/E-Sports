@@ -1,10 +1,17 @@
 {% extends 'admin/base.html' %}
 {% block content %}
 <h2 class="text-2xl font-bold text-primary mb-6">Editar Notícia</h2>
-<form action="{{ url_for('admin_edit_news', news_id=news.id) }}" method="POST" class="space-y-4 max-w-lg">
+<form action="{{ url_for('admin_edit_news', news_id=news.id) }}" method="POST" class="space-y-4 max-w-lg" enctype="multipart/form-data">
     <input type="text" name="title" value="{{ news.title }}" class="w-full p-2 rounded bg-gray-800 text-light" required>
     <textarea name="description" class="w-full p-2 rounded bg-gray-800 text-light" rows="4" required>{{ news.description }}</textarea>
-    <input type="text" name="image_url" value="{{ news.image_url }}" class="w-full p-2 rounded bg-gray-800 text-light">
+    <label class="block text-light">Imagem Atual:</label>
+    {% if news.image_file %}
+    <img src="{{ url_for('static', filename='uploads/news/' + news.image_file) }}" alt="Imagem Atual da Notícia" class="max-h-32 rounded mb-2">
+    {% else %}
+    <p class="text-gray-400">Nenhuma imagem atual.</p>
+    {% endif %}
+    <label for="image_file" class="block text-light">Substituir Imagem (opcional):</label>
+    <input type="file" name="file" id="image_file" class="w-full p-2 rounded text-light">
     <input type="text" name="link" value="{{ news.link }}" class="w-full p-2 rounded bg-gray-800 text-light">
     <button type="submit" class="bg-primary px-4 py-2 rounded-lg font-bold hover:bg-primary/90">Atualizar</button>
 </form>

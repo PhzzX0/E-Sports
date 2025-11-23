@@ -25,7 +25,7 @@ class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    image_url = db.Column(db.String(300), nullable=True)
+    image_file = db.Column(db.String(100), nullable=False)
     link = db.Column(db.String(300), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
