@@ -13,3 +13,7 @@
         opacity: 0.5;
     }
 }
+
+[x-cloak] {
+    display: none !important;
+}

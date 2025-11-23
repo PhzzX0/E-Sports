@@ -210,13 +210,14 @@
 
                 <div class="bg-dark/50 border border-primary/20 rounded-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="relative h-64 overflow-hidden cursor-pointer"
-                                @click="modalOpen = true; product = { 
-                        id: {{ p.id }}, 
-                        name: '{{ p.name }}', 
-                        price: {{ p.price }}, 
-                        description: '{{ p.description|default('Sem descrição') }}', 
-                        image_url: '{{ image_src }}'     
-                                }">
+                        @click="modalOpen = true; product = { 
+                            id: {{ p.id }}, 
+                            name: '{{ p.name }}', 
+                            price: {{ p.price }}, 
+                            description: '{{ p.description|default('Sem descrição', true)|e }}', 
+                            image_url: '{{ image_src }}'   
+                        }">
+                        
                         {% if p.image_file %}
                         <img src="{{ image_src }}" 
                             alt="{{ p.name }}" 
@@ -243,13 +244,14 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-primary font-bold text-lg">R$ {{ "%.2f"|format(p.price) }}</span>
-                                                    <button @click="modalOpen = true; product = { 
-                            id: {{ p.id }}, 
-                            name: '{{ p.name }}', 
-                            price: {{ p.price }}, 
-                            description: '{{ p.description|default('Sem descrição') }}', 
-                            image_url: '{{ image_src }}'       
-                                        }" 
+                            
+                            <button @click="modalOpen = true; product = { 
+                                id: {{ p.id }}, 
+                                name: '{{ p.name }}', 
+                                price: {{ p.price }}, 
+                                description: '{{ p.description|default('Sem descrição', true)|e }}', 
+                                image_url: '{{ image_src }}'
+                            }" 
                             class="bg-primary hover:bg-primary/90 text-dark font-bold py-2 px-4 rounded-full text-sm transition">
                             DETALHES
                             </button>
@@ -266,8 +268,8 @@
                 </a>
             </div>
         </div>
-            
-        <div x-show="modalOpen" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+        
+        <div x-show="modalOpen" x-transition x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
             <div @click.away="modalOpen = false" class="bg-dark rounded-xl max-w-lg w-full p-6 relative">
                 <button @click="modalOpen = false" class="absolute top-4 right-4 text-light hover:text-primary">
                     <i data-feather="x" class="w-6 h-6"></i>
@@ -276,7 +278,7 @@
                 <h3 class="text-2xl font-bold text-light mb-2" x-text="product.name"></h3>
                 <p class="text-light/80 mb-4" x-text="product.description"></p>
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-primary font-bold text-lg" x-text="'R$ ' + product.price.toFixed(2)"></span>
+                    <span class="text-primary font-bold text-lg" x-text="'R$ ' + (typeof product.price === 'number' ? product.price.toFixed(2) : product.price)"></span>
                     <button @click="
                     fetch('/add-to-cart/' + product.id, { method: 'POST' })
                     .then(() => window.location.href='/carrinho')

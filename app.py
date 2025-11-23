@@ -482,14 +482,15 @@ def admin_edit_news(news_id):
         news.title = request.form['title']
         news.description = request.form['description']
         news.link = request.form.get('link')
-        if 'file' in request.files and request.files['file'].filename != '':
-            file = request.files['file']
-        if allowed_file(file.filename):
-            delete_picture(news.image_file, 'news')
-            new_filename = save_picture(file, 'news') 
-            news.image_file = new_filename
-        else:
-            flash('Erro: Extensão de arquivo não permitida! Mantendo imagem anterior.', 'warning')
+        file = request.files.get('file')
+        if file and file.filename != '':
+            if allowed_file(file.filename):
+                if news.image_file:
+                    delete_picture(news.image_file, 'news')
+                new_filename = save_picture(file, 'news') 
+                news.image_file = new_filename
+            else:
+                flash('Erro: Extensão de arquivo não permitida! Mantendo imagem anterior.', 'warning')
         db.session.commit()
         flash('Notícia atualizada com sucesso!', 'success')
         return redirect(url_for('admin_news'))
